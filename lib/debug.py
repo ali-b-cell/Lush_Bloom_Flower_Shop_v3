@@ -1,6 +1,6 @@
 from database import Session
+from lib.utils import print_divider
 from models import Flower
-from helpers import print_divider
 
 session = Session()
 

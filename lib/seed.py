@@ -1,45 +1,75 @@
-from lib.models import Flower, Customer, Order, OrderItem
-from lib.database import Session, Base, engine
+#!/usr/bin/env python3
+
+from faker import Faker
+from random import randint, choice as rc
+from datetime import datetime
+
+from lib.models import Customer, Flower, Order, OrderItem
+from lib.database import Session
+
+fake = Faker()
+session = Session()
 
 def seed_data():
-    Base.metadata.drop_all(engine)
-    Base.metadata.create_all(engine)
+    print("🌱 Seeding database...")
 
-    session = Session()
+    # Clear existing data
+    session.query(OrderItem).delete()
+    session.query(Order).delete()
+    session.query(Flower).delete()
+    session.query(Customer).delete()
 
-    
-    flower1 = Flower(name="Rose", price=59.99)
-    flower2 = Flower(name="Tulip", price=99.99)
-    flower3 = Flower(name="Lily", price=129.99)
-    session.add_all([flower1, flower2, flower3])
+    # Seed Customers
+    customers = []
+    for _ in range(10):
+        customer = Customer(
+            name=fake.name(),
+            email=fake.email()
+        )
+        customers.append(customer)
+    session.add_all(customers)
+
+    # Seed Flowers
+    flowers = []
+    for _ in range(10):
+        flower = Flower(
+            name=fake.word().capitalize(),
+            price=round(fake.pyfloat(left_digits=2, right_digits=2, positive=True), 2),
+            stock_quantity=randint(10, 100)
+        )
+        flowers.append(flower)
+    session.add_all(flowers)
+
+    # Seed Orders and OrderItems
+    for _ in range(10):
+        customer = rc(customers)
+        order = Order(
+            customer=customer,
+            date=fake.date_this_year(),
+            total_price=0  # We'll calculate after adding items
+        )
+        session.add(order)
+        session.flush()  # To get order.id
+
+        num_items = randint(1, 3)
+        total = 0
+
+        for _ in range(num_items):
+            flower = rc(flowers)
+            quantity = randint(1, 5)
+            total += flower.price * quantity
+
+            order_item = OrderItem(
+                order=order,
+                flower=flower,
+                quantity=quantity
+            )
+            session.add(order_item)
+
+        order.total_price = round(total, 2)
+
     session.commit()
-    print("Seeded flowers successfully!")
+    print("✅ Done seeding!")
 
-    
-    customer1 = Customer(name="Marie", email="marie@outlook.com")
-    customer2 = Customer(name="Isaack", email="izzie@gmail.com")
-    customer3 = Customer(name="Lucinda", email="lc_nder@yahoo.com")
-    session.add_all([customer1, customer2, customer3])
-    session.commit()
-    print("Seeded customers successfully!")
-
-    
-    order1 = Order(customer_id=customer1.id)
-    order2 = Order(customer_id=customer2.id)
-    order3 = Order(customer_id=customer3.id)
-    session.add_all([order1, order2, order3])
-    session.commit()
-    print("Seeded orders successfully!")
-
-    
-    item1 = OrderItem(order_id=order1.id, flower_id=flower1.id, quantity=2)
-    item2 = OrderItem(order_id=order2.id, flower_id=flower2.id, quantity=8)
-    item3 = OrderItem(order_id=order3.id, flower_id=flower3.id, quantity=4)
-    session.add_all([item1, item2, item3])
-    session.commit()
-    print("Seeded order items successfully!")
-
-    session.close()
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     seed_data()

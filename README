@@ -1,0 +1,105 @@
+Certainly — here is your clean, professional, emoji-free `README.md` rendered as a single, copy-ready page:
+
+
+
+ Lush & Bloom Flower Shop — CLI Application
+
+Lush & Bloom** is a command-line flower shop management system built using Python and SQLAlchemy. It supports seeding data, listing flowers, placing customer orders, and managing stock directly from the terminal.
+
+
+
+Project Structure
+
+
+Lush_Bloom_Flower_Shop/
+├── lib/
+│   ├── cli.py          # Main Typer CLI interface
+│   ├── models.py       # SQLAlchemy models
+│   ├── database.py     # DB setup and session management
+│   ├── seed.py         # Seeder logic using Faker
+│   ├── utils.py        # CLI helper functions
+├── migrations/         # Alembic migrations (if used)
+├── Pipfile             # Pipenv dependency file
+├── README.md           # Project documentation
+
+
+
+
+ Features
+
+* Seed the database with sample flowers, customers, and orders
+* View all available flowers and their stock
+* Place orders with automatic stock management
+* Compute order totals automatically
+* Reset the entire database from the CLI
+
+
+
+Setup Instructions
+
+1. Clone the Repository
+
+```bash
+git clone <your_repo_url>
+cd Lush_Bloom_Flower_Shop
+```
+
+2. Install Dependencies
+
+```bash
+pipenv install
+pipenv shell
+```
+
+3. Run the CLI Application
+
+```bash
+python -m lib.cli
+```
+
+
+
+ Sample CLI Commands
+
+```bash
+python -m lib.cli welcome
+python -m lib.cli seed
+python -m lib.cli list-flowers
+python -m lib.cli buy-flower 1 3 5
+python -m lib.cli reset-db
+```
+
+
+
+ Loom Demo
+
+Watch the walkthrough video demonstration:
+[https://www.loom.com/share/f26da7b1684046df880ebd046ad721a3](https://www.loom.com/share/f26da7b1684046df880ebd046ad721a3)
+
+
+
+ Database Schema
+
+View the relational schema diagram:
+[https://dbdiagram.io/d/68343e720240c65c44398212](https://dbdiagram.io/d/68343e720240c65c44398212)
+
+
+
+ Tech Stack
+
+* Python 3.8+
+* Typer (for building the CLI)
+* SQLAlchemy (ORM)
+* SQLite (database engine)
+* Faker (for generating realistic seed data)
+
+
+
+Author
+
+Developed by Alice Nthenge at Moringa School
+Designed to demonstrate clean CLI architecture, ORM modeling, and Python tooling in a full-cycle terminal project.
+
+
+
+You can now copy the full content above and save it into your `README.md`. If you need it formatted as a downloadable `.md` file or pushed to GitHub, just say the word.

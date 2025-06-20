@@ -6,7 +6,8 @@ name = "pypi"
 [packages]
 sqlalchemy = "*"
 alembic = "*"
-typer = "*"
+typer = {extras = ["all"], version = "*"}
+faker = "*"
 
 [dev-packages]
 
