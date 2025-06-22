@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 
 from faker import Faker
 from random import randint, choice as rc
@@ -11,15 +11,15 @@ fake = Faker()
 session = Session()
 
 def seed_data():
-    print("🌱 Seeding database...")
+    print(" Seeding database...")
 
-    # Clear existing data
+    
     session.query(OrderItem).delete()
     session.query(Order).delete()
     session.query(Flower).delete()
     session.query(Customer).delete()
 
-    # Seed Customers
+    
     customers = []
     for _ in range(10):
         customer = Customer(
@@ -29,7 +29,7 @@ def seed_data():
         customers.append(customer)
     session.add_all(customers)
 
-    # Seed Flowers
+    
     flowers = []
     for _ in range(10):
         flower = Flower(
@@ -40,16 +40,16 @@ def seed_data():
         flowers.append(flower)
     session.add_all(flowers)
 
-    # Seed Orders and OrderItems
+    
     for _ in range(10):
         customer = rc(customers)
         order = Order(
             customer=customer,
             date=fake.date_this_year(),
-            total_price=0  # We'll calculate after adding items
+            total_price=0  
         )
         session.add(order)
-        session.flush()  # To get order.id
+        session.flush() 
 
         num_items = randint(1, 3)
         total = 0
@@ -69,7 +69,7 @@ def seed_data():
         order.total_price = round(total, 2)
 
     session.commit()
-    print("✅ Done seeding!")
+    print("Done seeding!")
 
 if __name__ == '__main__':
     seed_data()

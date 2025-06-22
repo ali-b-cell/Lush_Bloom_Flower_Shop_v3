@@ -7,7 +7,7 @@ from lib.database import Base, Session, engine
 
 app = typer.Typer()
 
-# Set up the database schema
+
 Base.metadata.create_all(engine)
 
 @app.command()
