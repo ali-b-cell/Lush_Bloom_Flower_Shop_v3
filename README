@@ -10,14 +10,14 @@ Project Structure
 
 Lush_Bloom_Flower_Shop/
 ├── lib/
-│   ├── cli.py          # Main Typer CLI interface
-│   ├── models.py       # SQLAlchemy models
-│   ├── database.py     # DB setup and session management
-│   ├── seed.py         # Seeder logic using Faker
-│   ├── utils.py        # CLI helper functions
-├── migrations/         # Alembic migrations (if used)
-├── Pipfile             # Pipenv dependency file
-├── README.md           # Project documentation
+│   ├── cli.py         
+│   ├── models.py       
+│   ├── database.py     
+│   ├── seed.py   #seeded using faker      
+│   ├── utils.py # CLI helper function       
+├── migrations/        
+├── Pipfile             
+├── README.md          
 
 
 
